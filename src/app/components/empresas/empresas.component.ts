@@ -9,7 +9,7 @@ import { EmpresasService } from '../../services/empresas.service';
   styleUrls: ['./empresas.component.css'],
 })
 export class EmpresasComponent implements OnInit {
-  titulo: 'Empresas';
+  titulo = 'Empresas';
   TituloAccionABMC = {
     A: '(Agregar)',
     B: '(Eliminar)',
@@ -29,10 +29,12 @@ export class EmpresasComponent implements OnInit {
     IdEmpresa: new FormControl(0),
     RazonSocial: new FormControl('', [
       Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(55),
+      Validators.maxLength(50),
     ]),
-    CantidadEmpleados: new FormControl(300, [Validators.required]),
+    CantidadEmpleados: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('[0-9]{1,3}'),
+    ]),
     FechaFundacion: new FormControl('', [
       Validators.required,
       Validators.pattern(
@@ -42,11 +44,21 @@ export class EmpresasComponent implements OnInit {
   });
 
   ngOnInit() {}
-  
+
   Buscar() {
     this.AccionABMC = 'L';
     this.empresasService.get().subscribe((res: Empresas[]) => {
       this.Items = res;
     });
+  }
+  Agregar() {
+    this.AccionABMC = 'A';
+    this.FormRegistro.reset({ IdEmpresa: 0 });
+  }
+  Grabar(){
+    return 0;
+  }
+  Volver(){
+    return 0;
   }
 }

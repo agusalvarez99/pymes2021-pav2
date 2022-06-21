@@ -1,5 +1,5 @@
 <div class="tituloPagina">
-  Empresas <small>{{ TituloAccionABMC[AccionABMC] }}</small>
+  {{ titulo }} <small>{{ TituloAccionABMC[AccionABMC] }}</small>
 </div>
 
 <form name="FormBusqueda" [formGroup]="FormBusqueda" *ngIf="AccionABMC == 'L'">
@@ -7,10 +7,10 @@
     <button type="button" class="btn btn-primary" (click)="Buscar()">
       Ver Listado
     </button>
-    <!--<button type="button" class="btn btn-primary" (click)="Agregar()">
+    <button type="button" class="btn btn-primary" (click)="Agregar()">
       <i class="fa fa-plus"> </i>
       Agregar
-  </button> -->
+    </button>
   </div>
 
   <div class="container-fluid" *ngIf="AccionABMC == 'L' && Items?.length > 0">
@@ -38,5 +38,120 @@
       </div>
       <div class="col-2"></div>
     </div>
+  </div>
+</form>
+
+<form name="FormRegistro" [formGroup]="FormRegistro" *ngIf="AccionABMC != 'L'">
+  <!--campo Razon social-->
+  <div class="row">
+    <div class="col-sm-4 col-md-3 offset-md-1">
+      <label class="col-form-label" for="RazonSocial"
+        >Razon Social<span class="text-danger">*</span>:</label
+      >
+    </div>
+    <div class="col-sm-8 col-md-6">
+      <input type="text" class="form-control" formControlName="RazonSocial" />
+
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['RazonSocial'].touched || submitted) &&
+          FormRegistro.controls['RazonSocial'].hasError('required')
+        "
+      >
+        Dato requerido.
+      </div>
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['RazonSocial'].touched || submitted) &&
+          FormRegistro.controls['RazonSocial'].hasError('maxlength')
+        "
+      >
+        Dato texto, hasta 50 caracteres.
+      </div>
+    </div>
+  </div>
+  <!--campo empelados-->
+  <div class="row">
+    <div class="col-sm-4 col-md-3 offset-md-1">
+      <label class="col-form-label" for="CantidadEmpleados"
+        >Cantidad de Empleados<span class="text-danger">*</span>:</label
+      >
+    </div>
+    <div class="col-sm-8 col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="CantidadEmpleados"
+        [ngClass]="{
+          'is-invalid':
+            (FormRegistro.controls['CantidadEmpleados'].touched || submitted) &&
+            FormRegistro.controls['CantidadEmpleados'].errors
+        }"
+      />
+
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['CantidadEmpleados'].touched || submitted) &&
+          FormRegistro.controls['CantidadEmpleados'].hasError('required')
+        "
+      >
+        Dato requerido.
+      </div>
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['CantidadEmpleados'].touched || submitted) &&
+          FormRegistro.controls['CantidadEmpleados'].hasError('pattern')
+        "
+      >
+        Dato numerico, hasta 4 cifras.
+      </div>
+    </div>
+  </div>
+  <!--fecha fundacion-->
+  <div class="row">
+    <div class="col-sm-4 col-md-3 offset-md-1">
+      <label class="col-form-label" for="FechaFundacion"
+        >Fecha de Fundacion<span class="text-danger">*</span>:</label
+      >
+    </div>
+    <div class="col-sm-8 col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="FechaFundacion"
+      />
+
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['FechaFundacion'].touched || submitted) &&
+          FormRegistro.controls['FechaFundacion'].hasError('required')
+        "
+      >
+        Dato requerido.
+      </div>
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['FechaFundacion'].touched || submitted) &&
+          FormRegistro.controls['FechaFundacion'].hasError('pattern')
+        "
+      >
+        Dato fecha, formato DD/MM/AAAA.
+      </div>
+    </div>
+  </div>
+  <!-- botones -->
+  <div class="row justify-content-center botones">
+    <button type="button" class="btn btn-primary" (click)="Volver()">
+      Volver
+    </button>
+    <button type="button" class="btn btn-primary" (click)="Grabar()">
+      Aceptar
+    </button>
   </div>
 </form>
