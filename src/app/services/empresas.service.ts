@@ -7,7 +7,7 @@ import { Empresas } from '../models/empresas';
 export class EmpresasService {
   resourceUrl: string;
   constructor(private httpClient: HttpClient) {
-    this.resourceUrl = 'https://pav2.azurewebsites.net/api/empresas';
+    this.resourceUrl = 'https://pymes2021.azurewebsites.net/api/empresas/';
   }
   get() {
     return this.httpClient.get(this.resourceUrl);

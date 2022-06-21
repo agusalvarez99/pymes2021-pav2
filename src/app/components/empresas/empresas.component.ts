@@ -42,4 +42,11 @@ export class EmpresasComponent implements OnInit {
   });
 
   ngOnInit() {}
+  
+  Buscar() {
+    this.AccionABMC = 'L';
+    this.empresasService.get().subscribe((res: Empresas[]) => {
+      this.Items = res;
+    });
+  }
 }
