@@ -55,10 +55,25 @@ export class EmpresasComponent implements OnInit {
     this.AccionABMC = 'A';
     this.FormRegistro.reset({ IdEmpresa: 0 });
   }
-  Grabar(){
-    return 0;
+  Grabar() {
+    this.submitted = true;
+    if (this.FormRegistro.invalid) {
+      return;
+    }
+    const itemCopy = { ...this.FormRegistro.value };
+    var arrFecha = itemCopy.FechaFundacion.substr(0, 10).split('/');
+    if (arrFecha.length == 3)
+      itemCopy.FechaFundacion = new Date(
+        arrFecha[2],
+        arrFecha[1] - 1,
+        arrFecha[0]
+      ).toISOString();
+    this.empresasService.post(itemCopy).subscribe((res: Empresas) => {
+      this.Buscar();
+    });
   }
-  Volver(){
-    return 0;
+
+  Volver() {
+    this.AccionABMC = 'L';
   }
 }
